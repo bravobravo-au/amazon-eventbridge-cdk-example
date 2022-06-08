@@ -62,4 +62,4 @@ $ cdk deploy --all
 ```
 
 Then you can repeat the tests performed documented in the Medium blog post located here
-
+https://medium.com/@bradbloomfield/adventures-in-amazon-event-bridge-with-cdk-12cace79e41f
