@@ -1,21 +1,34 @@
 
-# Welcome to your CDK Python project!
+# Amazon Eventbridge demonstration using Cloud Development Kit (CDK python)
 
-This is a blank project for CDK development with Python.
+This project demonstrates creating a custom eventbus, API destination, Lambda and rules using
+cdk. This stack shows how you can automate the deployment of an service oriented architecture 
+in Amazon Web Services using Amazon Event Bridge.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+If you deploy this example unaltered messages will be posted to webhook.site. 
+https://webhook.site/#!/d2062f94-8283-4327-ba52-355d943bc20e/ 
+Be careful not to send anything private here. You may also see messages posted from other 
+users if they have not deleted their tests. 
 
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
+The first rule is named TestRule001 and is fired when Event Bridge messages are received with a
+source of com.testing.test.001. When this rule fires it POSTS to webhook.site and renames
+the incoming parameter named id to be test-id. This shows how you using api destinations
+you can call a simple webservice and rename field names to suit the destination endpoint.
 
-To manually create a virtualenv on MacOS and Linux:
+The second rule is named TestRule002 and is fired when Event Bridge messages are received with a
+source of com.testing.test.002. When this rule fires it calls a Lambda fucntion. This Lambda function
+then transforms the message by renaming the field and adding a new field with the current time 
+and calls back to Event Bridge with a new message with source com.testing.test.003. This shows how Lambda can be used to completely
+manipulate / reroute messages coming through Event Bridge.
+
+The first rule is named TestRule003 and is fired when Event Bridge messages are received with a
+source of com.testing.test.003. When this rule fires it POSTS to webhook.site and passes the payload
+as was sent from the lambda function to the api destination.
+
+
 
 ```
-$ python3 -m venv .venv
+$ python -m venv .venv
 ```
 
 After the init process completes and the virtualenv is created, you can use the following
@@ -43,16 +56,10 @@ At this point you can now synthesize the CloudFormation template for this code.
 $ cdk synth
 ```
 
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
+To deply this example as is
+```
+$ cdk deploy --all
+```
 
-## Useful commands
+Then you can repeat the tests performed documented in the Medium blog post located here
 
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
