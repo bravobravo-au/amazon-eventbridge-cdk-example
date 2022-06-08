@@ -21,7 +21,7 @@ then transforms the message by renaming the field and adding a new field with th
 and calls back to Event Bridge with a new message with source com.testing.test.003. This shows how Lambda can be used to completely
 manipulate / reroute messages coming through Event Bridge.
 
-The first rule is named TestRule003 and is fired when Event Bridge messages are received with a
+The third rule is named TestRule003 and is fired when Event Bridge messages are received with a
 source of com.testing.test.003. When this rule fires it POSTS to webhook.site and passes the payload
 as was sent from the lambda function to the api destination.
 
